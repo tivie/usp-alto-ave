@@ -1,156 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Formulário para Caso Positivo</title>
+  <meta charset="UTF-8">
+  <title>Formulário para Caso Positivo</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    
-    <style>
-        #rastreio-de-contactos-group {
-            border: 1px dashed;
-        }
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-        .form-group.required label:after {
-            content:"*";
-            color:red;
-        }
-    </style>
+  <style>
+    #rastreio-de-contactos-group {
+      border: 1px dashed;
+    }
+
+    .form-group.required label:after {
+      content: "*";
+      color: red;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
     <h1>Formulário para Caso Positivo</h1>
-    
+
     <div>Textinho bonito</div>
-    
+
     <div id="formulario-wrapper">
-        <form id="formulario-caso-positivo" class="needs-validation">
-            <div class="form-group required">
-                <label for="nomeutente">Nome:</label>
-                <input name="nomeutente" id="nomeutente" type="text" class="form-control" required>
-                <small id="nomeHelp" class="form-text text-muted">Texto de ajuda sobre o nome</small>
-            </div>
-
-            <div class="form-group required">
-                <label for="numutente">Número de utente (SNS):</label>
-                <input name="numutente" id="numutente" type="number" pattern="\d{9}" min="100000000" max="999999999" class="form-control" required>
-                <small id="num-utenteHelp" class="form-text text-muted">Texto de ajuda sobre o número de utente</small>
-            </div>
-
-            <div class="form-group required">
-                <label for="datanascimento">Data de Nascimento:</label>
-                <input name="datanascimento" id="datanascimento" type="date" class="form-control" required>
-            </div>
-
-            <h2>Lista dos contactantes</h2>
-            <div id="rastreio-de-contactos-group">
-                
-                <div class="row">
-                    <div class="col form-group">
-                        <span id="adicionar-contacto" class="btn btn-primary">Adicionar mais um contactante</span>
-                    </div>
-                </div>
-                
-                <div id="rastreio-de-contactos-items">
-                    
-                </div>
-                
-            </div>
-            
-            
-            <br><br><br>
-            <button id="enviarform" class="btn btn-primary">Enviar Formulário</button>
-        </form>
-
-        
-        
-        
-        <div id="cena-para-add" style="display: none">
-            <fieldset class="rastreio-de-contactos-row row">
-                <div class="col-md-5 form-group required">
-                    <input name="contacto_nome" type="text" class="form-control" placeholder="Nome">
-                </div>
-                <div class="col-md-3 form-group required">
-                    <input name="contacto_tel" type="number" class="form-control" placeholder="Telefone">
-                </div>
-                <div class="col-md-4  form-group">
-                    <input name="contacto_email" type="email" class="form-control" placeholder="Email">
-                </div>
-            </fieldset>
+      <form id="formulario-caso-positivo" class="needs-validation">
+        <div class="form-group required">
+          <label for="nomeutente">Nome:</label>
+          <input name="nomeutente" id="nomeutente" type="text" class="form-control" required>
+          <small id="nomeHelp" class="form-text text-muted">Texto de ajuda sobre o nome</small>
         </div>
-        
+
+        <div class="form-group required">
+          <label for="numutente">Número de utente (SNS):</label>
+          <input name="numutente" id="numutente" type="number" pattern="\d{9}" min="100000000" max="999999999"
+            class="form-control" required>
+          <small id="num-utenteHelp" class="form-text text-muted">Texto de ajuda sobre o número de utente</small>
+        </div>
+
+        <div class="form-group required">
+          <label for="datanascimento">Data de Nascimento:</label>
+          <input name="datanascimento" id="datanascimento" type="date" class="form-control" required>
+        </div>
+
+        <h2>Lista dos contactantes</h2>
+        <div id="rastreio-de-contactos-group">
+
+          <div class="row">
+            <div class="col form-group">
+              <span id="adicionar-contacto" class="btn btn-primary">Adicionar mais um contactante</span>
+            </div>
+          </div>
+
+          <div id="rastreio-de-contactos-items">
+
+          </div>
+
+        </div>
+
+        <br><br><br>
+        <button id="enviarform" class="btn btn-primary" onclick="submitForm(event)">
+          Enviar Formulário
+          <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <div id="cena-para-add" style="display: none">
+        <fieldset class="rastreio-de-contactos-row row">
+          <div class="col-md-4 form-group required">
+            <input name="contacto_nome" type="text" class="form-control" placeholder="Nome">
+          </div>
+          <div class="col-md-3 form-group required">
+            <input name="contacto_tel" type="number" class="form-control" placeholder="Telefone">
+          </div>
+          <div class="col-md-3  form-group">
+            <input name="contacto_email" type="email" class="form-control" placeholder="Email">
+          </div>
+          <div class="col-md-1 form-group">
+            <button class="remove-patient btn btn-info" onclick="removeContact(event)">
+              Remover
+            </button>
+          </div>
+        </fieldset>
+      </div>
+
     </div>
-</div>
+  </div>
 
+  <!-- a partir daqui não mexer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
+  <script>
+    function removeContact(ev) {
+      ev.currentTarget.parentElement.parentElement.remove();
+    }
 
+    function addLoadingStatus(ev) {
+      ev.currentTarget.disabled = true;
+      ev.currentTarget.children[0].classList.remove("d-none");
+    }
 
-
-<!-- a partir daqui não mexer -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<script>
-  $(document).ready(function(){
-    
-    $('#formulario-caso-positivo').submit(function(e) {
-      e.preventDefault();
+    function submitForm(ev) {
+      ev.preventDefault();
+      addLoadingStatus(ev);
       var arrayData = $('#formulario-caso-positivo').serializeArray();
-      var toJsonSer = {
-        contactos: []
-      };
-      
-      for (var i = 0; i < arrayData.length; ++i) {
-        var key = arrayData[i].name;
-        var val = arrayData[i].value;
-        
-        if (key === 'contacto_nome') {
-          var obj = {};
-          obj.nome = val;
-          obj.tel = arrayData[i + 1].value;
-          obj.email = arrayData[i + 2].value;
-          toJsonSer.contactos.push(obj);
-          i = i+2;
-        } else {
-          toJsonSer[key] = val;
+      var contactos = [];
+
+      var payload = {};
+      // primeiros 3 sao sempre do paciente
+      // remove os primeiros do arrayData
+      var patient = arrayData.splice(0, 3);
+      patient.forEach(item => {
+        // adicionar cada uns dos fields referentes ao paciente
+        payload[item.name] = item.value;
+      });
+
+      // arrayData apenas contem contactos
+      for (var i = 0; i < arrayData.length; i = i + 3) {
+        if (arrayData[i].value && arrayData[i + 1].value) {
+          // apenas processa info se tiver nome e contacto telefonico
+          var contact = {
+            nome: arrayData[i].value,
+            tel: arrayData[i + 1].value,
+            email: arrayData[i + 2].value,
+          }
+          contactos.push(contact);
         }
-        
       }
+
+      payload.contactos = contactos;
+
+      // para testar, abrir a consola no browser e descomentar as 2 linhas abaixo
+      // console.log(payload);
+      // return;
+
       //var jsonData = JSON.stringify(toJsonSer);
       var url = 'https://prod-102.westeurope.logic.azure.com:443/workflows/31557671fa2c4004add7324f7a490b63/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dhft2BDXsnOeKjVmZysjTfH14tsKdXDq9zrSKPHz8PY';
-        
+
       //console.log(JSON.stringify(toJsonSer));
-      
-      
+
       var rqt = $.ajax({
         url: url,
         type: "POST",
         crossDomain: true,
-        data: JSON.stringify(toJsonSer),
+        data: JSON.stringify(payload),
         dataType: "json",
         headers: {
-          'Content-Type':'application/json'
-        }});
-      
+          'Content-Type': 'application/json'
+        }
+      });
+
       rqt.done(function (response) {
-          // dar feedback ao utente
-          window.location.href = '../responses/sucesso.html';
+        // dar feedback ao utente
+        window.location.href = '../responses/sucesso.html';
       });
-      
+
       rqt.fail(function (xhr, status) {
-          alert(xhr.responseJSON.message);
+        var button = document.getElementById('enviarform');
+        button.disabled = false;
+        button.children[0].classList.add("d-none");
+        alert(xhr.responseJSON.message);
       });
-       
+
+    }
+
+    $(document).ready(function () {
+      $('#adicionar-contacto').click(function () {
+        $('#cena-para-add .rastreio-de-contactos-row').first().clone().appendTo('#rastreio-de-contactos-items');
+      });
     });
-    
-    
-    $('#adicionar-contacto').click(function () {
-      $('#cena-para-add .rastreio-de-contactos-row').first().clone().appendTo('#rastreio-de-contactos-items');
-    });
-    
-    
-  });
-    
-</script>
+
+  </script>
 
 </body>
+
 </html>
