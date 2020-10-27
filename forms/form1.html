@@ -9,31 +9,36 @@
 <body>
 
 <div class="container"> 
+    
+    
     <div>
         <h1>Titulo do textinho bonito</h1>
         Textinho bonito
     </div>
-    <div id="formulario">
-        <form class="needs-validation">
+    
+    
+    <div id="formulario-wrapper">
+        <form id="formulario-caso-positivo" class="needs-validation">
             <div class="form-group">
-                <label for="nome-utente">Nome:</label>
-                <input id="nome-utente" type="text" class="form-control" required>
+                <label for="nomeutente">Nome:</label>
+                <input name="nomeutente" id="nomeutente" type="text" class="form-control" required>
                 <small id="nomeHelp" class="form-text text-muted">Texto de ajuda sobre o nome</small>
             </div>
 
             <div class="form-group">
-                <label for="num-utente">Número de utente (SNS):</label>
-                <input id="num-utente" type="number" pattern="\d{9}" min="100000000" max="999999999" class="form-control" required>
+                <label for="numutente">Número de utente (SNS):</label>
+                <input name="numutente" id="numutente" type="number" pattern="\d{9}" min="100000000" max="999999999" class="form-control" required>
                 <small id="num-utenteHelp" class="form-text text-muted">Texto de ajuda sobre o número de utente</small>
             </div>
 
             <div class="form-group">
-                <label for="data-nascimento">Data de Nascimento:</label>
-                <input id="data-nascimento" type="date" class="form-control" required>
+                <label for="datanascimento">Data de Nascimento:</label>
+                <input name="datanascimento" id="datanascimento" type="date" class="form-control" required>
             </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+            
+            <button id="enviarform" class="btn btn-primary">Enviar Formulário</button>
         </form>
+        
         
         
     </div>
@@ -41,29 +46,48 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<!-- a partir daqui não mexer -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-
 <script>
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
+  $(document).ready(function(){
+    
+    $('#formulario-caso-positivo').submit(function(e) {
+      e.preventDefault();
+      var arrayData = $('#formulario-caso-positivo').serializeArray();
+      var toJsonSer = {};
+      
+      for (var i = 0; i < arrayData.length; ++i) {
+        toJsonSer[arrayData[i].name] = arrayData[i].value;
+      }
+      //var jsonData = JSON.stringify(toJsonSer);
+      var url = 'https://prod-102.westeurope.logic.azure.com:443/workflows/31557671fa2c4004add7324f7a490b63/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dhft2BDXsnOeKjVmZysjTfH14tsKdXDq9zrSKPHz8PY';
+
+      var rqt = $.ajax({
+        url: url,
+        type: "POST",
+        crossDomain: true,
+        data: JSON.stringify(toJsonSer),
+        dataType: "json",
+        headers: {
+          'Content-Type':'application/json'
+        }});
+      
+      rqt.done(function (response) {
+          // dar feedback ao utente
+          window.location.href = '../responses/sucesso.html';
       });
-    }, false);
-  })();
+      
+      rqt.fail(function (xhr, status) {
+          alert(xhr.responseJSON.message);
+      });
+    });
+    
+    
+    
+  });
+    
 </script>
 
 </body>
