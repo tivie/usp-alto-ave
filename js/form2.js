@@ -14,7 +14,7 @@ function submitForm(ev) {
     payload[item.name] = item.value;
   });
 
-  var url = config.form1.url;
+  var url = config.form2.url;
 
   var rqt = $.ajax({
     url: url,
