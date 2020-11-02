@@ -1,0 +1,8 @@
+#rastreio-de-contactos-group {
+    border: 1px dashed;
+}
+
+.form-group.required label:after {
+    content: "*";
+    color: red;
+}

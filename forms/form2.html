@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário para Contacto</title>
+
+    <link rel="stylesheet" href="../css/form1.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="../js/config.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Formulário para Caso Positivo</h1>
+
+    <div>
+        <p>Caro(a) Utente,</p>
+
+        <p>Informamos que em virtude do contacto que manteve com um caso confirmado de COVID-19, foi identificado como
+            Contacto com Exposição de Alto Risco.</p>
+
+        <p>Considera-se Contacto com Exposição de Alto Risco a pessoa que, de acordo com a proximidade, duração e
+            ambiente do contacto, existência de contacto físico e utilização de equipamento de proteção individual, tem
+            um risco elevado de contrair COVID-19.</p>
+
+        <p>Os Contactos com Exposição de Alto Risco deverão cumprir as seguintes medidas:</p>
+        <ul>
+            <li>Isolamento profilático obrigatório no domicílio ou outro local designado para o efeito, durante 14 dias
+                desde o último dia de exposição ao caso confirmado;
+            </li>
+            <li>Para proteger os seus coabitantes devem ser implementadas rigorosamente as medidas de distanciamento,
+                higiene e etiqueta respiratória em casa, disponíveis aqui (ficheiro Recomendações para o período de
+                isolamento ) e que deve ler com atenção.
+            </li>
+            <li>Meça e registe a sua temperatura de manhã e à noite. Registe também a ocorrência de outros sintomas como
+                por exemplo: tosse, febre, dificuldade respiratória, dores de cabeça, cansaço, entre outros.
+            </li>
+        </ul>
+        <p>Esteja atento ao seu estado de saúde, mantendo-se SEMPRE em isolamento profilático social. Em caso de
+            surgimento ou agravamento de sintomas, deve contactar a linha SNS24 (808 24 24 24) ou o seu médico
+            assistente.</p>
+
+    </div>
+
+    <hr>
+
+    <div id="formulario-wrapper">
+        <form>
+            <div class="form-group required">
+                <label for="nome" class="">Nome Completo</label>
+                <input id="nome" name="nome" type="text" class="form-control" aria-describedby="nomeHelpBlock"
+                       required="required">
+                <span id="nomeHelpBlock" class="form-text text-muted">Nome completo conforme BI/CC</span>
+            </div>
+            <div class="form-group required">
+                <label for="data-nascimento" class="">Data de nascimento</label>
+                <input id="data-nascimento" name="data-nascimento" type="date" class="form-control"
+                       required="required">
+            </div>
+            <div class="form-group required">
+                <label for="num-utente" class="">Número de Utente</label>
+                <input id="num-utente" name="num-utente" type="number" class="form-control"
+                       aria-describedby="num-utenteHelpBlock" required="required">
+                <span id="num-utenteHelpBlock" class="form-text text-muted">Número de utente do SNS. Se não tiver, escreva 111111111</span>
+            </div>
+            <div class="form-group required">
+                <label for="num-cc" class="">Número de CC</label>
+                <input id="num-cc" name="num-cc" type="number" class="form-control" required="required"
+                       aria-describedby="num-ccHelpBlock">
+                <span id="num-ccHelpBlock" class="form-text text-muted">Número do Cartão de Cidadão, passaporte ou título de residência</span>
+            </div>
+            <div class="form-group required">
+                <label for="text" class="">Validade do CC</label>
+                <input id="text" name="text" type="text" class="form-control" required="required">
+            </div>
+            <div class="form-group required">
+                <label for="text1" class="">Número da SS</label>
+                <input id="text1" name="text1" type="text" class="form-control" required="required">
+            </div>
+            <div class="form-group required">
+                <label for="email" class="">Email</label>
+                <input id="email" name="email" type="email" required="required" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="telefone" class="">Telefone</label>
+                <input id="telefone" name="telefone" type="text" class="form-control" required="required">
+            </div>
+            <div class="form-group required">
+                <label for="morada" class="">Morada</label>
+                <input id="morada" name="morada" type="text" class="form-control" required="required">
+            </div>
+            <div class="form-group required">
+                <label for="cpostal" class="">Código-Postal</label>
+                <input id="cpostal" name="cpostal" type="text" class="form-control" required="required">
+            </div>
+            <div class="form-group required">
+                <label for="localidade" class="">Localidade</label>
+                <input id="localidade" name="localidade" type="text" class="form-control" required="required">
+            </div>
+            <div class="form-group required">
+                <label for="freguesia" class="">Freguesia</label>
+                <input id="freguesia" name="freguesia" type="text" class="form-control" required="required">
+            </div>
+            <div class="form-group required">
+                <label for="concelho" class="">Concelho</label>
+                <select id="concelho" name="concelho" class="custom-select" required="required">
+                    <option value="Guimarães">Guimarães</option>
+                    <option value="Mondim de Basto">Mondim de Basto</option>
+                    <option value="Cabeceiras de Basto">Cabeceiras de Basto</option>
+                    <option value="Fafe">Fafe</option>
+                    <option value="Vizela">Vizela</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>

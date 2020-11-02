@@ -1,3 +1,21 @@
+/*
+ *     PARC-COVID: Plataforma Automática de Rastreio de Contactos
+ *     Copyright (C) 2020  Estêvão Soares dos Santos
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU Affero General Public License as published
+ *     by the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU Affero General Public License for more details.
+ *
+ *     You should have received a copy of the GNU Affero General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 function removeContact(ev) {
   ev.currentTarget.parentElement.parentElement.remove();
 }
@@ -7,132 +25,55 @@ function addLoadingStatus(ev) {
   ev.currentTarget.children[0].classList.remove("d-none");
 }
 
-function setMinDate(minDate) {
-  document.querySelectorAll('.data-contacto').forEach(function (item) {
-    item.min = minDate;
-  })
-}
-
-function setMaxDate(maxDate) {
-  document.querySelectorAll('.data-contacto').forEach(function (item) {
-    item.max = maxDate;
-  })
-}
-
-function disableContactDates() {
-  document.querySelectorAll('.data-contacto').forEach(function (item) {
-    item.disabled = true;
-  })
-}
-
-function enableContactDates() {
-  document.querySelectorAll('.data-contacto').forEach(function (item) {
-    item.disabled = false;
-  })
-}
-
-var testDate;
-var symptomsDate;
-var earliestDate;
-
-var twoDayInMilliseconds = 24 * 60 * 60 * 1000 * 2;
-
-function calculateEearliestDate(d) {
-  var twoDaysAgoInMs = new Date(d) - twoDayInMilliseconds;
-  const twoDaysAgo = parseData(new Date(twoDaysAgoInMs));
-  return twoDaysAgo;
-}
-
-function parseData(d) { // returns yyyy-mm-dd
-  return d.toISOString().match(/.*(?=T)/)[0];
-}
-
-function getMinAndMaxDate() {
-  var today = parseData(new Date);
-  if (!testDate && !symptomsDate) return {};
-  if (!testDate) return { max: today, min: calculateEearliestDate(symptomsDate) };
-  if (!symptomsDate) return { max: today, min: calculateEearliestDate(testDate) };
-  var date1 = new Date(testDate);
-  var date2 = new Date(symptomsDate);
-  if (date1 < date2) return { max: today, min: calculateEearliestDate(testDate) };
-  return { max: today, min: calculateEearliestDate(symptomsDate) };
-}
-
-document.getElementById('datateste').addEventListener('input', (ev) => {
-  testDate = ev.currentTarget.value;
-  if (!testDate && !symptomsDate) {
-    disableContactDates();
-    return;
-  }
-  enableContactDates();
-  var dates = getMinAndMaxDate();
-  setMinDate(dates.min);
-  setMaxDate(dates.max);
-})
-
-document.getElementById('datasintomas').addEventListener('input', (ev) => {
-  symptomsDate = ev.currentTarget.value;
-  if (!testDate && !symptomsDate) {
-    disableContactDates();
-    return;
-  }
-  enableContactDates();
-  var dates = getMinAndMaxDate();
-  setMinDate(dates.min);
-  setMaxDate(dates.max);
-})
-
 function submitForm(ev) {
+  var form = $('#formulario-caso-positivo');
+  if (!form[0].checkValidity()) {
+    return false;
+  }
   ev.preventDefault();
   addLoadingStatus(ev);
-  var arrayData = $('#formulario-caso-positivo').serializeArray();
-  var contactos = [];
 
-  console.log(arrayData);
-
+  var arrayData = form.serializeArray();
+  var contactos;
   var payload = {};
-  // primeiros 5 ou 6 sao sempre do paciente
+  
+  // primeiros 3 sao sempre do paciente
   // remove os primeiros do arrayData
-  var patient;
-  if (document.getElementById("sympt").checked) {
-    patient = arrayData.splice(0, 6);
-  } else {
-    patient = arrayData.splice(0, 5);
-  }
-  console.log(patient)
-  patient.forEach(item => {
-    // adicionar cada uns dos fields referentes ao paciente
-    payload[item.name] = item.value;
-  });
+  // TODO rever porque vai ser necessário adicionar campos ao formulário
+  //var patient = arrayData.splice(0, 3);
+
 
   // Obter hash do endereço e adicionar ao payload
   payload.casehash = window.location.hash.replace(/^#/, '');
+  payload.contactos = [];
+  contactos = arrayData.filter(function(f) { return f.name.match(/^contacto_/); });
 
-  // arrayData apenas contem contactos
-  for (var i = 0; i < arrayData.length; i = i + 4) {
-    console.log(arrayData[i + 3].value)
-    if (arrayData[i].value && arrayData[i + 1].value && arrayData[i + 3].value) {
+  arrayData.forEach(item => {
+    // adicionar cada uns dos fields referentes ao paciente
+    if (!item.name.match(/^contacto_/)) {
+      payload[item.name] = item.value;
+    }
+  });
+  
+  for (var i = 0; i < contactos.length; i = i + 4) {
+    if (contactos[i].value && contactos[i + 1].value) {
       // apenas processa info se tiver nome e contacto telefonico
       var contact = {
-        nome: arrayData[i].value,
-        tel: arrayData[i + 1].value,
-        email: arrayData[i + 2].value,
-        datacontacto: arrayData[i + 3].value
+        nome: contactos[i].value,
+        tel: contactos[i + 1].value,
+        email: contactos[i + 2].value,
+        data_contacto: contactos[i + 3].value
       }
-      contactos.push(contact);
+      payload.contactos.push(contact);
     }
   }
 
-  payload.contactos = contactos;
-
   // para testar, abrir a consola no browser e descomentar as 2 linhas abaixo
-  // console.log(payload);
-  // return;
-
-  //var jsonData = JSON.stringify(toJsonSer);
-  var url = 'https://prod-102.westeurope.logic.azure.com:443/workflows/31557671fa2c4004add7324f7a490b63/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dhft2BDXsnOeKjVmZysjTfH14tsKdXDq9zrSKPHz8PY';
-
-  //console.log(JSON.stringify(toJsonSer));
+  //console.log(payload);
+  //console.log(JSON.stringify(payload));
+  //return;
+  
+  var url = config.form1.url;
 
   var rqt = $.ajax({
     url: url,
@@ -156,25 +97,25 @@ function submitForm(ev) {
     button.children[0].classList.add("d-none");
     alert(xhr.responseJSON.message);
   });
-
+  
 }
 
 $(document).ready(function () {
   $('#adicionar-contacto').click(function () {
-    if (testDate || symptomsDate) {
-      enableContactDates();
-    }
     $('#cena-para-add .rastreio-de-contactos-row').first().clone().appendTo('#rastreio-de-contactos-items');
-    var dates = getMinAndMaxDate();
-    setMinDate(dates.min);
-    setMaxDate(dates.max);
   });
-
-  document.getElementById("sympt").addEventListener('click', function (ev) {
-    if (ev.currentTarget.checked) {
-      ev.currentTarget.parentElement.children.namedItem("datasintomas").type = "date";
-      return;
+  
+  $('#tem-sintomas').click(function () {
+    var dataSintomas = $('#datasintomas');
+    dataSintomas.toggle();
+    
+    if (dataSintomas.is(":visible")) {
+      dataSintomas.attr('required', true);
+    } else {
+      dataSintomas.attr('required', false);
     }
-    ev.currentTarget.parentElement.children.namedItem("datasintomas").type = "hidden";
-  })
+  });
+  
+  
+  
 });
