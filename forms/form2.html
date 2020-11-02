@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="../js/config.js"></script>
 </head>
 <body>
 
@@ -48,7 +46,7 @@
     <hr>
 
     <div id="formulario-wrapper">
-        <form>
+        <form id="formulario-contacto">
             <div class="form-group required">
                 <label for="nome" class="">Nome Completo</label>
                 <input id="nome" name="nome" type="text" class="form-control" aria-describedby="nomeHelpBlock"
@@ -63,7 +61,7 @@
             <div class="form-group required">
                 <label for="num-utente" class="">Número de Utente</label>
                 <input id="num-utente" name="num-utente" type="number" class="form-control"
-                       aria-describedby="num-utenteHelpBlock" required="required">
+                       aria-describedby="num-utenteHelpBlock" required="required" pattern="\d{9}" min="100000000" max="999999999">
                 <span id="num-utenteHelpBlock" class="form-text text-muted">Número de utente do SNS. Se não tiver, escreva 111111111</span>
             </div>
             <div class="form-group required">
@@ -73,13 +71,14 @@
                 <span id="num-ccHelpBlock" class="form-text text-muted">Número do Cartão de Cidadão, passaporte ou título de residência</span>
             </div>
             <div class="form-group required">
-                <label for="text" class="">Validade do CC</label>
-                <input id="text" name="text" type="text" class="form-control" required="required">
+                <label for="validade_cc" class="">Validade do CC</label>
+                <input id="validade_cc" name="validade_cc" type="date" class="form-control" required="required">
             </div>
             <div class="form-group required">
-                <label for="text1" class="">Número da SS</label>
-                <input id="text1" name="text1" type="text" class="form-control" required="required">
+                <label for="num_ss" class="">Número da SS</label>
+                <input id="num_ss" name="num_ss" type="number" class="form-control" required="required">
             </div>
+            <!--
             <div class="form-group required">
                 <label for="email" class="">Email</label>
                 <input id="email" name="email" type="email" required="required" class="form-control">
@@ -88,6 +87,7 @@
                 <label for="telefone" class="">Telefone</label>
                 <input id="telefone" name="telefone" type="text" class="form-control" required="required">
             </div>
+            -->
             <div class="form-group required">
                 <label for="morada" class="">Morada</label>
                 <input id="morada" name="morada" type="text" class="form-control" required="required">
@@ -117,13 +117,27 @@
             </div>
 
             <div class="form-group">
-                <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                <button id="enviarform" class="btn btn-primary" onclick="submitForm(event)">
+                    Enviar Formulário
+                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                </button>
             </div>
         </form>
     </div>
 
 </div>
 
+
+<!-- a partir daqui não mexer -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+<script src="../js/config.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/form2.js"></script>
 
 </body>
 </html>
