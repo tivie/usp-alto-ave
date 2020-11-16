@@ -6,3 +6,11 @@
     content: "*";
     color: red;
 }
+
+#cpostal4 {
+    margin-left: 10px;
+}
+
+#cpostal4, #cpostal3 {
+    max-width: 100px;
+}
