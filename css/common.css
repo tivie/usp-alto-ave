@@ -1,0 +1,65 @@
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+[id^="cpostal"] {
+    display: inline-block;
+    max-width: 100px;
+}
+
+.form-group.required label:after {
+    content: "*";
+    color: red;
+}
+
+.required-here:after {
+    content: "*";
+    color: red;
+}
+
+label.no-required:after {
+    content: "";
+}
+
+fieldset {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px #ccc dashed;
+}
+fieldset legend {
+    width: auto !important;
+}
+
+#rastreio-de-contactos-items {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.rastreio-de-contactos-row {
+    border-bottom: 1px #ccc dashed;
+
+}
+#rastreio-de-contactos-items .rastreio-de-contactos-row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#rastreio-de-contactos-items .rastreio-de-contactos-row:not(:first-child) {
+    margin-top: 20px;
+}
+@media (min-width: 1200px) {
+    button.remove-patient {
+        margin-left: -20px;
+    }
+}
+
+#rastreio-de-contactos-group {
+    border: 1px dashed;
+}
+
+.form-group.required label:after {
+    content: "*";
+    color: red;
+}

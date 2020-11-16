@@ -1,41 +1,53 @@
-function submitForm(ev) {
-  var form = $('#formulario-contacto');
-  if (!form[0].checkValidity()) {
-    return false;
-  }
-  ev.preventDefault();
-  addLoadingStatus(ev);
+var formElement = document.getElementById('formularioUtente');
 
-  var payload = {};
-  var arrayData = form.serializeArray();
-  payload.guid = window.location.hash.replace(/^#/, '');
-  
-  arrayData.forEach(item => {
-    payload[item.name] = item.value;
-  });
-
-  var url = config.form2.url;
-
-  var rqt = $.ajax({
-    url: url,
-    type: "POST",
-    crossDomain: true,
-    data: JSON.stringify(payload),
-    dataType: "json",
-    headers: {
-      'Content-Type': 'application/json'
+function toggleContent(event, element) {
+    if (!event || !element) {
+        console.warn("please provide event and element to hide or display")
+        return;
     }
-  });
+    var htmlEl = document.getElementById(element);
+    if (event.target.checked) {
+        htmlEl.hidden = false;
+        return;
+    }
+    htmlEl.hidden = true;
+}
 
-  rqt.done(function (response) {
-    // dar feedback ao utente
-    window.location.href = '../responses/sucesso.html';
-  });
+function submitForm(event) {
+    event.preventDefault();
+    addLoadingStatus(event);
+    var data = {};
+    var form = new FormData(formElement);
+    for (var key of form.keys()) {
+        data[key] = form.get(key);
+    }
+    submitData(data);
+}
 
-  rqt.fail(function (xhr, status) {
-    var button = document.getElementById('enviarform');
-    button.disabled = false;
-    button.children[0].classList.add("d-none");
-    alert(xhr.responseJSON.message);
-  });
+function submitData(data) {
+    data.guid = window.location.hash.replace(/^#/, '');
+    console.log(data);
+    return;
+    var url = config.form2.url;
+    var rqt = $.ajax({
+        url: url,
+        type: "POST",
+        crossDomain: true,
+        data: JSON.stringify(data),
+        dataType: "json",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    rqt.done(function () {
+        window.location.href = '../responses/sucesso.html';
+    });
+
+    rqt.fail(function (xhr) {
+        var button = document.getElementById('enviarform');
+        button.disabled = false;
+        button.children[0].classList.add("d-none");
+        alert(xhr.responseJSON.message);
+    });
 }
