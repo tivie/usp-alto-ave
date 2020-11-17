@@ -20,19 +20,6 @@ function removeContact(ev) {
   ev.currentTarget.parentElement.parentElement.remove();
 }
 
-function setHasSymptoms (event) {
-  var symptInput = document.getElementById("data_sintomas");
-  if(event.target.checked) {
-    symptInput.disabled = false;
-    return;
-  }
-  symptInput.disabled = true;
-}
-
-function getComments () {
-  return document.getElementById('comentarios').value;
-}
-
 function addLoadingStatus(ev) {
   ev.currentTarget.disabled = true;
   ev.currentTarget.children[0].classList.remove("d-none");
@@ -48,10 +35,7 @@ function submitForm(ev) {
 
   var arrayData = form.serializeArray();
   var contactos;
-  var comentarios = getComments();
-  var payload = {
-    comentarios: comentarios,
-  };
+  var payload = {};
   
   // primeiros 3 sao sempre do paciente
   // remove os primeiros do arrayData
@@ -85,9 +69,9 @@ function submitForm(ev) {
   }
 
   // para testar, abrir a consola no browser e descomentar as 2 linhas abaixo
-  // console.log(payload);
-  // console.log(JSON.stringify(payload));
-  return;
+  //console.log(payload);
+  //console.log(JSON.stringify(payload));
+  //return;
   
   var url = config.form1.url;
 
@@ -133,46 +117,5 @@ $(document).ready(function () {
   });
   
   
-  $('#concelho-select').change(function() {
-
-    var wrapper = $('#concelho-wrapper');
-    var input = $('#concelho');
-    
-    if (this.value === 'outro') {
-      input.val('');
-      wrapper.show();
-    } else {
-      input.val(this.value);
-      wrapper.hide();
-    }
-
-    if (input.is(":visible")) {
-      input.attr('required', true);
-    } else {
-      input.attr('required', false);
-    }
-  });
-
-  /**
-   * 
-   * @param $wrapper 
-   */
-  function switchActivate($wrapper) {
-    var input = $wrapper.find('input');
-    $wrapper.toggle();
-
-    if ($wrapper.is(":visible")) {
-      input.attr('required', true);
-    } else {
-      input.attr('required', false);
-    }
-  }
   
-  $('#profissional_de_lar').click(function() {
-    switchActivate($('#nome-do-lar-wrapper'));
-  });
-
-  $('#profissional_de_saude').click(function() {
-    switchActivate($('#instituicao-de-saude-wrapper'));
-  });
 });

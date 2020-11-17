@@ -3,16 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Formulário do Utente Caso Positivo</title>
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <link rel="stylesheet" href="../css/common.css">
+  <title>Formulário para Caso Positivo</title>
 
   <link rel="stylesheet" href="../css/form1.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -22,17 +19,14 @@
 
     <div>
       <p>Caro(a) utente,</p>
-      <p>Dado ter-se confirmado positivo no teste para a COVID-19, informamos que terá de iniciar isolamento
-        imediato,
-        na sua casa. Isto significa, que deste momento e até indicações contrárias de médico assistente deve
-        permanecer
-        no seu quarto sem contactar com nenhuma outra pessoa, mesmo outros elementos com quem habita.
+      <p>Dado ter-se confirmado positivo no teste para a COVID-19, informamos que  terá de iniciar isolamento imediato, 
+        na sua casa.  Isto significa, que deste momento e até indicações contrárias de médico assistente deve permanecer 
+        no seu quarto sem contactar com nenhuma outra pessoa, mesmo outros elementos com quem habita. 
         É muito importante que leia com toda a atenção as recomendações que deve tomar, disponíveis aqui.
-        O seu isolamento em casa será verificado pelas Autoridades Policiais.
-        Esclarecemos que o incumprimento desta medida é considerado crime de desobediência,
+        O seu isolamento em casa será verificado pelas Autoridades Policiais. 
+        Esclarecemos que o incumprimento desta medida é considerado crime de desobediência, 
         pelo que pedimos a sua máxima colaboração.</p>
-      <p>É muito importante que preencha de forma verdadeira e o mais completa possível os dados abaixo pedidos.
-      </p>
+      <p>É muito importante que preencha de forma verdadeira e o mais completa possível os dados abaixo pedidos.</p>
       <p>Deverá preencher o seguinte formulário o qual permitirá:</p>
       <ul>
         <li>Ser acompanhado pelo Médico de Família.</li>
@@ -40,250 +34,90 @@
       </ul>
     </div>
 
+    <hr>
+    
     <div id="formulario-wrapper">
       <form id="formulario-caso-positivo" class="needs-validation">
+        <div class="form-group required">
+          <label for="nomeutente">Nome:</label>
+          <input name="nomeutente" id="nomeutente" type="text" class="form-control" required>
+          <small id="nomeHelp" class="form-text text-muted">Nome completo conforme BI/CC</small>
+        </div>
 
-        <fieldset id="dados-pessoais-fieldset">
+        <div class="form-group required">
+          <label for="numutente">Número de utente (SNS):</label>
+          <input name="numutente" id="numutente" type="number" pattern="\d{9}" min="100000000" max="999999999"
+            class="form-control" required>
+          <small id="numutenteHelp" class="form-text text-muted">Número de Utente do SNS</small>
+        </div>
 
-          <legend>Dados Pessoais</legend>
+        <div class="form-group required">
+          <label for="datanascimento">Data de Nascimento:</label>
+          <input name="datanascimento" id="datanascimento" type="date" class="form-control" required>
+        </div>
 
-          <div class="form-group required">
-            <label for="nome_utente">Nome:</label>
-            <input name="nome_utente" id="nome_utente" type="text" class="form-control" required>
-            <small id="nomeHelp" class="form-text text-muted">Texto de ajuda sobre o nome</small>
-          </div>
+        <div class="form-group required">
+          <label for="morada">Morada</label>
+          <input name="morada" id="morada" type="text" class="form-control" required>
+          <small id="moradaHelp" class="form-text text-muted">Morada completa com código postal</small>
+        </div>
+        
+        <div class="form-group required">
+          <label for="datateste">Data do Teste:</label>
+          <input name="datateste" id="datateste" type="date" class="form-control" required>
+        </div>
 
-          <div class="form-group required">
-            <label for="num_utente">Número de utente (SNS):</label>
-            <input name="num_utente" id="num_utente" type="number" pattern="\d{9}" min="100000000" max="999999999"
-              class="form-control" required>
-            <small id="num_utenteHelp" class="form-text text-muted">Número de utente do SNS. Número composto
-              por 9 dígitos que está no verso do Cartão de Cidadão.</small>
-          </div>
+        <div class="form-group">
+          <label for="datasintomas">Tem Sintomas?</label>
+          <input type="checkbox" id="tem-sintomas" name="tem-sintomas">
+          <input name="datasintomas" id="datasintomas" type="date" class="form-control" style="display: none;">
+        </div>
 
-          <div class="form-group required">
-            <label for="data_nascimento">Data de Nascimento:</label>
-            <input name="data_nascimento" id="data_nascimento" type="date" class="form-control" required>
-          </div>
-
-          <div class="form-group required">
-            <label for="cartao_cidadao">Número do Cartão de Cidadão/ Título de Residência:</label>
-            <input name="cartao_cidadao" id="cartao_cidadao" type="number" class="form-control" required>
-            <small id="ccHelp" class="form-text text-muted">Número do Cartão de Cidadão, Passaporte ou título
-              de residência. Se não possuir nenhum destes documentos identificativos, escreva 1.</small>
-          </div>
-
-          <div class="form-group required">
-            <label for="data_validade_cc">Data de Validade do CC:</label>
-            <input name="data_validade_cc" id="data_validade_cc" type="date" class="form-control">
-            <small id="data_validade_ccHelp" class="form-text text-muted">Campo não obrigatório</small>
-          </div>
-
-          <div class="form-group required">
-            <label for="niss">Número de identificação da Segurança Social:</label>
-            <input name="niss" id="niss" type="number" class="form-control">
-            <small id="nissHelp" class="form-text text-muted">Número de identificação da Segurança
-              Social</small>
-          </div>
-
-          <div class="form-group">
-            <span class="required-here">Sexo:</span>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="sexo" id="sexo-masculino" value="masculino">
-              <label class="form-check-label" for="sexo-masculino">Masculino</label>
-            </div>
-
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="sexo" id="sexo-feminino" value="feminino">
-              <label class="form-check-label" for="sexo-feminino">Feminino</label>
-            </div>
-          </div>
-
-        </fieldset>
-
-        <fieldset id="morada-fieldset">
-
-          <legend>Morada de Isolamento</legend>
-
-          <div class="form-group required">
-            <label for="morada">Morada:</label>
-            <textarea name="morada" id="morada" class="form-control" required></textarea>
-            <small id="localidadeHelp" class="form-text text-muted">Morada <b>onde se encontra a fazer o
-                isolamento</b>,
-              e não a morada oficial/fiscal</small>
-          </div>
-
-          <div class="form-row form-group">
-            <div class="col-xl-4 form-inline">
-              <label class="required-here" for="cpostal4">Código-postal:</label>
-              <input name="cpostal4" id="cpostal4" type="text" class="form-control" pattern="[0-9]{4}" required>
-              <label for="cpostal3" class="no-required">&nbsp;-&nbsp;</label>
-              <input name="cpostal3" id="cpostal3" type="text" class="form-control" pattern="[0-9]{3}" required>
-            </div>
-
-            <div class="col-xl-4 form-inline">
-              <label for="localidade">Localidade:</label>
-              <input name="localidade" id="localidade" type="text" class="form-control" required>
-            </div>
-
-            <div class="col-xl-4 form-inline">
-              <label for="freguesia">Freguesia:</label>
-              <input name="freguesia" id="freguesia" type="text" class="form-control" required>
-            </div>
-          </div>
-
-          <div class="form-inline form-group required">
-            <div class="form-group">
-              <label for="concelho-select">Concelho:</label>
-              <select id="concelho-select" class="form-control" required>
-                <option value="Guimarães">Guimarães</option>
-                <option value="Mondim de Basto">Mondim de Basto</option>
-                <option value="Cabeceiras de Basto">Cabeceiras de Basto</option>
-                <option value="Fafe">Fafe</option>
-                <option value="Vizela">Vizela</option>
-                <option value="outro">Outro</option>
-              </select>
-            </div>
-
-            <div id="concelho-wrapper" class="form-group" style="display: none">
-              <label for="concelho">Concelho:</label>
-              <input name="concelho" id="concelho" type="text" class="form-control">
-            </div>
-
-          </div>
-        </fieldset>
-
-        <fieldset id="dados-profissionais-fieldset">
-          <legend>Dados Profissionais</legend>
-
-          <div class="form-group required">
-            <label for="situacao-perante-emprego">Situação perante emprego:</label>
-            <select name="situacao-perante-emprego" id="situacao-perante-emprego" class="form-control" required>
-              <option hidden disabled selected value> -- seleccione uma opção --</option>
-              <option value="empregado">Empregado</option>
-              <option value="desempregado">Desempregado</option>
-              <option value="reformado">Reformado</option>
-            </select>
-          </div>
-
-          <div class="form-group form-dados-prof-item required" style="display: none">
-            <label for="profissao">Profissão:</label>
-            <input name="profissao" id="profissao" type="text" class="form-control">
-          </div>
-
-
-          <div class="form-group custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" name="profissional_de_lar" id="profissional_de_lar">
-            <label class="custom-control-label" for="profissional_de_lar">É funcionário ou utente de
-              Lar/Instituição de Apoio Social?<span class="required-here"></span></label>
-          </div>
-
-          <div id="nome-do-lar-wrapper" class="form-group required" style="display: none">
-            <label for="nome_do_lar">Nome do lar/Instituição:</label>
-            <input name="nome_do_lar" id="nome_do_lar" type="text" class="form-control">
-          </div>
-
-          <div class="form-group custom-control custom-switch form-dados-prof-item" style="display: none">
-            <input type="checkbox" class="custom-control-input" name="profissional_de_saude" id="profissional_de_saude">
-            <label class="custom-control-label" for="profissional_de_saude">É profissional de saúde?<span
-                class="required-here"></span></label>
-          </div>
-
-          <div id="instituicao-de-saude-wrapper" class="form-group required" style="display: none">
-            <label for="instituicao_de_saude">Instituição de Saúde a que pertence:</label>
-            <input name="instituicao_de_saude" id="instituicao_de_saude" type="text" class="form-control">
-          </div>
-
-        </fieldset>
-
-        <fieldset id="teste-fieldset">
-          <legend>Teste</legend>
-          <div class="form-group required">
-            <div>
-              <label>Data do teste</label>
-              <input name="data_teste" id="data_teste" type="date" class="form-control">
-            </div>
-            <div style="margin-top: 16px">
-              <label>Sintomas</label>
-              <input name="symptoms" id="has-symptons" type="checkbox" onchange="setHasSymptoms(event)">
-            </div>
-            <div>
-              <label for="data_sintomas">Data dos sintomas</label>
-              <input name="symptoms" id="data_sintomas" type="date" disabled>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset id="comentarios-fieldset">
-          <legend>Comentários</legend>
-          <div class="form-group">
-            <textarea id="comentarios" style="width: 100%;" rows="3"></textarea>
-          </div>
-        </fieldset>
-
-        <fieldset id="lista-de-contactantes-fieldset">
-          <legend>Lista dos contactantes</legend>
-
-          <div class="form-group">
-            <p><b>Um contacto é uma pessoa que esteve consigo, presencialmente, mais do que 15 minutos!</b></p>
-            <p>Aqui deve introduzir os contactos que teve desde a data indicada pela autoridade de saúde.<br>
-              A <b>Data do último contacto</b> corresponde à data em que essa pessoa esteve pela última vez
-              consigo<br>
-              É <b>muito importante</b> que preencha o <b>email</b> de cada contacto para que essa pessoa
-              possa receber a <b>Declaração de Isolamento Profilático</b> atempadamente e as
-              <b>informações sobre os procedimentos de isolamento que deve seguir!!</b></p>
-          </div>
+        <h2>Lista dos contactantes</h2>
+        <div id="rastreio-de-contactos-group">
 
           <div class="row">
-            <div class="col-xl-3 d-none d-xl-block">Nome:</div>
-            <div class="col-xl-2 d-none d-xl-block">Telefone:</div>
-            <div class="col-xl-3 d-none d-xl-block">Email:</div>
-            <div class="col-xl-4 d-none d-xl-block">Data do último contacto:</div>
+            <div class="col form-group">
+              <span id="adicionar-contacto" class="btn btn-primary">Adicionar mais um contactante</span>
+            </div>
           </div>
 
           <!-- AQUI são inseridos as infos dos contactantes -->
-          <div id="rastreio-de-contactos-items" class="form-group"></div>
+          <div id="rastreio-de-contactos-items"></div>
 
-          <div class="form-group">
-            <span id="adicionar-contacto" class="btn btn-info">Adicionar mais um contactante</span>
-          </div>
-        </fieldset>
+        </div>
 
         <br><br><br>
-        <!-- g-recaptcha -->
-        <button id="enviarform" class="btn btn-primary" data-sitekey="6LfUjN8ZAAAAABKJC-HJEXlOeIyeM9ypBXYGi_aF"
-          data-callback='onSubmit' onclick="submitForm(event)">
+        <button id="enviarform" class="btn btn-primary" onclick="submitForm(event)">
           Enviar Formulário
           <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
         </button>
       </form>
 
       <div id="cena-para-add" style="display: none">
-        <div class="rastreio-de-contactos-row row">
-          <div class="col-xl-3 form-group required">
-            <label class="d-xl-none">Nome:</label>
-            <input aria-label="Nome completo do contacto" name="contacto_nome" type="text" class="form-control"
-              placeholder="Nome" required>
+        <fieldset class="rastreio-de-contactos-row row" style="border-bottom: 1px solid black; margin: 8px 0px">
+          <div class="col-md-4 form-group required">
+            <label for="contacto_nome">Nome:</label>
+            <input name="contacto_nome" type="text" class="form-control" placeholder="Nome" required>
           </div>
-          <div class="col-xl-2 form-group required">
-            <label class="d-xl-none">Telefone:</label>
-            <input aria-label="Telefone do contacto" name="contacto_tel" type="number" class="form-control"
-              placeholder="Telefone" required>
+          <div class="col-md-2 form-group required">
+            <label for="contacto_tel">Telefone:</label>
+            <input name="contacto_tel" type="number" class="form-control" placeholder="Telefone" required>
           </div>
-          <div class="col-xl-3 form-group">
-            <label class="d-xl-none">Email:</label>
-            <input aria-label="Email do contacto" name="contacto_email" type="email" class="form-control"
-              placeholder="Email">
+          <div class="col-md-3 form-group">
+            <label for="contacto_email">E-mail:</label>
+            <input name="contacto_email" type="email" class="form-control" placeholder="Email">
           </div>
-          <div class="col-xl-3 form-group required">
-            <label class="d-xl-none">Data do último contacto:</label>
-            <input aria-label="Data do último contacto" name="contacto_datacontacto" class="data-contacto form-control"
-              type="date" required>
+          <div class="col-md-3 form-group required inline">
+            <label for="datacontacto">Data de contacto:</label>
+            <input name="contacto_datacontacto" class="data-contacto form-control" type="date" required>
           </div>
-          <div class="col-xl-1 form-group">
-            <button class="remove-patient btn btn-danger" onclick="removeContact(event)">Remover</button>
+          <div class="col-md-1 form-group" style="display: flex; align-items: flex-end;">
+            <button class="remove-patient btn btn-info" onclick="removeContact(event)">
+              Remover
+            </button>
           </div>
-        </div>
+        </fieldset>
       </div>
 
     </div>
@@ -296,10 +130,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="../js/config.js"></script>
   <script src="../js/common.js"></script>
-
   <script src="../js/form1.js"></script>
 </body>
 
