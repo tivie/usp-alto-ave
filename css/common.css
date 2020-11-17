@@ -1,3 +1,4 @@
+
 .form-group {
     margin-bottom: 2rem;
 }
@@ -6,7 +7,6 @@
     display: inline-block;
     max-width: 100px;
 }
-
 
 .form-group.required label:after {
     content: "*";
