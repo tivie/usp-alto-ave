@@ -2,6 +2,11 @@
     margin-bottom: 2rem;
 }
 
+[id^="cpostal"] {
+    display: inline-block;
+    max-width: 100px;
+}
+
 
 .form-group.required label:after {
     content: "*";
@@ -48,4 +53,13 @@ fieldset legend {
     button.remove-patient {
         margin-left: -20px;
     }
+}
+
+#rastreio-de-contactos-group {
+    border: 1px dashed;
+}
+
+.form-group.required label:after {
+    content: "*";
+    color: red;
 }
