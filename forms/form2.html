@@ -88,7 +88,6 @@
                     <div class="form-group required">
                         <label for="data_validade_cc">Data de Validade do CC:</label>
                         <input name="data_validade_cc" id="data_validade_cc" type="date" class="form-control">
-                        <small id="data_validade_ccHelp" class="form-text text-muted">Campo não obrigatório</small>
                     </div>
 
                     <div class="form-group required">
@@ -184,16 +183,16 @@
                         <div class="form-group custom-control custom-switch">
                             <input id="trabalho-checkbox" type="checkbox"
                                 onclick="toggleContent(event, 'trabalho-condicional')" class="custom-control-input">
-                            <label class="custom-control-label" for="trabalho-checkbox">Trabalha?<span
+                            <label class="custom-control-label" for="trabalho-checkbox">Trabalha ou estuda?<span
                                     class="required-here"></span></label>
                         </div>
                         <div id="trabalho-condicional" hidden>
                             <div>
-                                <label>Local de trabalho</label>
+                                <label>Local de trabalho ou de ensino</label>
                                 <input name="local_emprego" id="local_emprego" class="form-control" required>
                             </div>
                             <div>
-                                <label>Data do ultimo dia que foi trabalhar</label>
+                                <label>Data do ultimo dia que foi trabalhar/Data do ínicio do isolamento</label>
                                 <input name="data_emprego" id="data_emprego" type="date" class="form-control" required>
                             </div>
                         </div>
@@ -214,7 +213,7 @@
                                 <input name="febre" type="checkbox" id="febre"><label for="febre">Febre (Tª>38ºC)</label>
                             </div>
                             <div>
-                                <input name="tosse" type="checkbox" id="tosse"><label for="tosse">Tossee</label>
+                                <input name="tosse" type="checkbox" id="tosse"><label for="tosse">Tosse</label>
                             </div>
                             <div>
                                 <input name="dor_muscular" type="checkbox" id="dor_muscular"><label for="dor_muscular">Dores
